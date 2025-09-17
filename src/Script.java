@@ -3,7 +3,10 @@ import java.awt.Color;
 import javax.swing.JTextField;
 
 public class Script {
-    int[] password = {3, 1, 4, 2};
+    private int[] password;
+    public Script() {
+        password = generateNewPassword();
+    }
     public JTextField[] checkPassword(JTextField[] fields) {
         for (int i = 0; i < fields.length; i++) {
             int value = Integer.parseInt(fields[i].getText());
@@ -17,6 +20,7 @@ public class Script {
         }
         return fields;
     }
+
     public boolean rightPassword(JTextField[] fields) {
         for (int i = 0; i < fields.length; i++) {
             int value = Integer.parseInt(fields[i].getText());
@@ -29,24 +33,29 @@ public class Script {
         }
         return true;
     }
+
     public boolean contains(int[] password2, int value) {
         for (int i : password2) {
             if (i == value) return true;
         }
         return false;
     }
+
     public void rightPosition(JTextField field) {
         field.setDisabledTextColor(Color.GREEN);
 
     }
+
     public void wrongPosition(JTextField field) {
         field.setDisabledTextColor(Color.YELLOW);
         
     }
+
     public void notInPassword(JTextField field) {
         field.setDisabledTextColor(Color.RED);
         
     }
+
     public boolean ifDuplicateNumbers(JTextField[] fields) {
         int[] num = new int[4];
         for (int i = 0; i < fields.length; i++) {
@@ -65,4 +74,19 @@ public class Script {
         return check;
     }
 
+    public int numberRamdom() {
+        return (int) (Math.random() * 10);
+    }
+    public int[] generateNewPassword() {
+        int[] password = new int[4];
+        for(int i = 0;i<password.length;i++)
+        {
+            int num;
+            do {
+                num = numberRamdom();
+            } while (contains(password, num));
+                password[i] = num;
+        }
+        return password;
+    }
 }

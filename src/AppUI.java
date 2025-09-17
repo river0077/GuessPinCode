@@ -10,6 +10,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -25,6 +28,10 @@ public class AppUI extends JFrame {
     private JTextField[] textFields;
     private JButton buttonCheck;
     private JButton buttonReset;
+    private JMenuBar menuBar;
+    private JMenu menuFile, menuOptions;
+    private JMenuItem menuItemExit, menuItemAbout, menuItemHelp, menuItemReset, menuItemCheck;
+    private Script script = new Script();
 
     public AppUI() {
         setTitle("Guess PinCode");
@@ -34,6 +41,27 @@ public class AppUI extends JFrame {
         setLayout(new BorderLayout());
         setResizable(false);
         // UI components
+        menuBar = new JMenuBar();
+        menuFile = new JMenu("File");
+        menuItemAbout = new JMenuItem("About");
+        menuItemAbout.addActionListener(new MenuProcess());
+        menuItemHelp = new JMenuItem("Help");
+        menuItemHelp.addActionListener(new MenuProcess());
+        menuItemExit = new JMenuItem("Exit");
+        menuItemExit.addActionListener(new MenuProcess());
+        menuFile.add(menuItemAbout);
+        menuFile.add(menuItemHelp);
+        menuFile.add(menuItemExit);
+        menuBar.add(menuFile);
+        menuOptions = new JMenu("Options");
+        menuItemReset = new JMenuItem("Reset");
+        menuItemReset.addActionListener(new MenuProcess());
+        menuItemCheck = new JMenuItem("Check");
+        menuItemCheck.addActionListener(new MenuProcess());
+        menuOptions.add(menuItemReset);
+        menuOptions.add(menuItemCheck);
+        menuBar.add(menuOptions);
+        setJMenuBar(menuBar);
         panelCenter = new JPanel();
         panelUp = new JPanel();
         buttonsUp = new JButton[4];
@@ -112,7 +140,6 @@ public class AppUI extends JFrame {
                     textFields[i].setText(String.valueOf(currentValue));
                     textFields[i].setDisabledTextColor(Color.BLACK);
                 } else if (button == buttonCheck) {
-                    Script script = new Script();
                     if(script.ifDuplicateNumbers(textFields)) {
                         JOptionPane.showMessageDialog(null, "Duplicate numbers are not allowed!", "Warning", JOptionPane.WARNING_MESSAGE);
                         return;
@@ -132,6 +159,23 @@ public class AppUI extends JFrame {
                         textFields[j].setDisabledTextColor(Color.BLACK);
                     }
                 }
+            }
+        }
+    }
+    private class MenuProcess implements ActionListener {
+        @Override
+        public void actionPerformed(java.awt.event.ActionEvent e) {
+            JMenuItem menuItem = (JMenuItem) e.getSource();
+            if (menuItem == menuItemExit) {
+                System.exit(0);
+            } else if(menuItem == menuItemAbout) {
+                JOptionPane.showMessageDialog(null, "Guess PinCode v1.0\nAuthor: River0077", "About", JOptionPane.INFORMATION_MESSAGE);
+            } else if(menuItem == menuItemHelp) {
+                JOptionPane.showMessageDialog(null, "Instructions:\n1. Use the up and down arrows to set each digit of the pin code.\n2. Click 'Check' to verify your guess.\n3. Colors indicate correctness: Green (correct), Yellow (wrong position), Red (not in code).\n4. Click 'Reset' to start over.", "Help", JOptionPane.INFORMATION_MESSAGE);
+            } else if(menuItem == menuItemReset) {
+                buttonReset.doClick();
+            } else if(menuItem == menuItemCheck) {
+                buttonCheck.doClick();
             }
         }
     }
