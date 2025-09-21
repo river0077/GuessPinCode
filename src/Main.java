@@ -11,6 +11,5 @@ public class Main {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(3);
         frame.setVisible(true);
-
     }
 }

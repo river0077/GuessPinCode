@@ -46,4 +46,4 @@ The program gives visual feedback with colors:
 
 ```bash
 javac Main.java
-java Main```
+java Main
