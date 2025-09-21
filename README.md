@@ -35,7 +35,7 @@ The program gives visual feedback with colors:
 
 ## 🖼️ Screenshot (Example)
 
-
+<img width="496" height="369" alt="image" src="https://github.com/user-attachments/assets/1e658fc5-d866-491c-8f0e-25130ef725c2" />
 
 ---
 
