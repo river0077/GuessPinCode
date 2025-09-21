@@ -16,10 +16,13 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 public class AppUI extends JPanel {
     private JLabel title;
-    private JPanel panelExitandTitle;
+    private JPanel panelBar;
+    private JPanel panelTitle;
+    private JPanel panelExitandMinimize;
     private JPanel panelCenter;
     private JPanel panelUp;
     private JPanel panelDown;
@@ -27,6 +30,7 @@ public class AppUI extends JPanel {
     private JPanel panelBottom;
     private JPanel panelResult;
     private JPanel panelSelect;
+    private JButton buttonMinimize;
     private JButton buttonExit;
     private JButton[] buttonsUp;
     private JButton[] buttonsDown;
@@ -40,19 +44,32 @@ public class AppUI extends JPanel {
         setLayout(new BorderLayout());
         setBackground(new Color(0x283C4F));
         // UI components
-        panelExitandTitle = new JPanel();
-        panelExitandTitle.setLayout(new BorderLayout());
-        panelExitandTitle.setOpaque(false);
+        panelBar = new JPanel();
+        panelBar.setLayout(new BorderLayout());
+        panelBar.setOpaque(false);
+        panelTitle = new JPanel();
+        panelTitle.setOpaque(false);
         title = new JLabel("  Guess Pin Code");
         title.setForeground(Color.WHITE);
         title.setFont(title.getFont().deriveFont(12f));
-        panelExitandTitle.add(title, BorderLayout.WEST);
+        panelTitle.add(title);
+        panelBar.add(panelTitle, BorderLayout.WEST);
+        panelExitandMinimize = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
+        panelExitandMinimize.setOpaque(false);
+        buttonMinimize = new JButton("–");
+        buttonMinimize.addActionListener(new ButtonProcess());
+        buttonMinimize.setBackground(new Color(0x283C4F));
+        buttonMinimize.setBorderPainted(false);
+        buttonMinimize.setFocusPainted(false);
+        buttonMinimize.setForeground(Color.WHITE);
+        panelExitandMinimize.add(buttonMinimize);
         buttonExit = new JButton("X");
         buttonExit.addActionListener(new ButtonProcess());
         buttonExit.setBackground(Color.RED);
         buttonExit.setBorderPainted(false);
         buttonExit.setFocusPainted(false);
-        panelExitandTitle.add(buttonExit, BorderLayout.EAST);
+        panelExitandMinimize.add(buttonExit);
+        panelBar.add(panelExitandMinimize, BorderLayout.EAST);
         panelCenter = new JPanel();
         panelCenter.setOpaque(false);
         panelUp = new JPanel();
@@ -120,7 +137,7 @@ public class AppUI extends JPanel {
         panelSelect.add(buttonRestart);
         panelBottom.add(panelSelect, BorderLayout.SOUTH);
         Container window = this;
-        window.add(panelExitandTitle, "North");
+        window.add(panelBar, "North");
         window.add(panelCenter, "Center");
         window.add(panelBottom, "South");
         setVisible(true);
@@ -186,13 +203,16 @@ public class AppUI extends JPanel {
                     }
                 } else if (button == buttonExit) {
                     System.exit(0);
+                } else if (button == buttonMinimize) {
+                    JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(AppUI.this);
+                    topFrame.setState(JFrame.ICONIFIED);
                 }
             }
         }
     }
     public void enableWindowDrag(JFrame frame) {
         final Point[] mouseDownCompCoords = {null};
-        panelExitandTitle.addMouseListener(new MouseAdapter() {
+        panelBar.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 mouseDownCompCoords[0] = e.getPoint();
             }
@@ -200,7 +220,7 @@ public class AppUI extends JPanel {
                 mouseDownCompCoords[0] = null;
             }
         });
-        panelExitandTitle.addMouseMotionListener(new MouseAdapter() {
+        panelBar.addMouseMotionListener(new MouseAdapter() {
             public void mouseDragged(MouseEvent e) {
                 Point currCoords = e.getLocationOnScreen();
                 frame.setLocation(currCoords.x - mouseDownCompCoords[0].x, currCoords.y - mouseDownCompCoords[0].y);
