@@ -1,15 +1,21 @@
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
 public class Main {
-    
+
     public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        frame.setTitle("Guess Pin Code");
-        frame.setUndecorated(true);
-        frame.add(new AppUI());
-        frame.setResizable(false);
-        frame.setSize(400, 300);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(3);
-        frame.setVisible(true);
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame();
+            AppUI app = new AppUI();
+            frame.setTitle("Guess Pin Code");
+            frame.setUndecorated(true);
+            frame.add(app);
+            frame.setResizable(false);
+            frame.setSize(400, 300);
+            frame.setLocationRelativeTo(null);
+            frame.setDefaultCloseOperation(3);
+            app.enableWindowDrag(frame);
+            frame.setVisible(true);
+        });
     }
 }

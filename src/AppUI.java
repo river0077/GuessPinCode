@@ -7,7 +7,11 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -185,5 +189,22 @@ public class AppUI extends JPanel {
                 }
             }
         }
+    }
+    public void enableWindowDrag(JFrame frame) {
+        final Point[] mouseDownCompCoords = {null};
+        panelExitandTitle.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                mouseDownCompCoords[0] = e.getPoint();
+            }
+            public void mouseReleased(MouseEvent e) {
+                mouseDownCompCoords[0] = null;
+            }
+        });
+        panelExitandTitle.addMouseMotionListener(new MouseAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                Point currCoords = e.getLocationOnScreen();
+                frame.setLocation(currCoords.x - mouseDownCompCoords[0].x, currCoords.y - mouseDownCompCoords[0].y);
+            }
+        });
     }
 }
