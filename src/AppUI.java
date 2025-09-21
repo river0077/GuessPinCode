@@ -9,69 +9,61 @@ import java.awt.Image;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class AppUI extends JFrame {
+public class AppUI extends JPanel {
+    private JLabel title;
+    private JPanel panelExitandTitle;
     private JPanel panelCenter;
     private JPanel panelUp;
     private JPanel panelDown;
     private JPanel panelTextField;
+    private JPanel panelBottom;
+    private JPanel panelResult;
     private JPanel panelSelect;
+    private JButton buttonExit;
     private JButton[] buttonsUp;
     private JButton[] buttonsDown;
     private JTextField[] textFields;
     private JButton buttonCheck;
-    private JButton buttonReset;
-    private JMenuBar menuBar;
-    private JMenu menuFile, menuOptions;
-    private JMenuItem menuItemExit, menuItemAbout, menuItemHelp, menuItemReset, menuItemCheck;
+    private JButton buttonRestart;
+    private JLabel result;
     private Script script = new Script();
 
     public AppUI() {
-        setTitle("Guess PinCode");
-        setSize(400, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
         setLayout(new BorderLayout());
-        setResizable(false);
+        setBackground(new Color(0x283C4F));
         // UI components
-        menuBar = new JMenuBar();
-        menuFile = new JMenu("File");
-        menuItemAbout = new JMenuItem("About");
-        menuItemAbout.addActionListener(new MenuProcess());
-        menuItemHelp = new JMenuItem("Help");
-        menuItemHelp.addActionListener(new MenuProcess());
-        menuItemExit = new JMenuItem("Exit");
-        menuItemExit.addActionListener(new MenuProcess());
-        menuFile.add(menuItemAbout);
-        menuFile.add(menuItemHelp);
-        menuFile.add(menuItemExit);
-        menuBar.add(menuFile);
-        menuOptions = new JMenu("Options");
-        menuItemReset = new JMenuItem("Reset");
-        menuItemReset.addActionListener(new MenuProcess());
-        menuItemCheck = new JMenuItem("Check");
-        menuItemCheck.addActionListener(new MenuProcess());
-        menuOptions.add(menuItemReset);
-        menuOptions.add(menuItemCheck);
-        menuBar.add(menuOptions);
-        setJMenuBar(menuBar);
+        panelExitandTitle = new JPanel();
+        panelExitandTitle.setLayout(new BorderLayout());
+        panelExitandTitle.setOpaque(false);
+        title = new JLabel("  Guess Pin Code");
+        title.setForeground(Color.WHITE);
+        title.setFont(title.getFont().deriveFont(12f));
+        panelExitandTitle.add(title, BorderLayout.WEST);
+        buttonExit = new JButton("X");
+        buttonExit.addActionListener(new ButtonProcess());
+        buttonExit.setBackground(Color.RED);
+        buttonExit.setBorderPainted(false);
+        buttonExit.setFocusPainted(false);
+        panelExitandTitle.add(buttonExit, BorderLayout.EAST);
         panelCenter = new JPanel();
+        panelCenter.setOpaque(false);
         panelUp = new JPanel();
+        panelUp.setOpaque(false);
         buttonsUp = new JButton[4];
         for (int i = 0; i < buttonsUp.length; i++) {
             buttonsUp[i] = setImgforButton("resources/up.png");
             buttonsUp[i].addActionListener(new ButtonProcess());
+            buttonsUp[i].setBorderPainted(false);
+            buttonsUp[i].setFocusPainted(false);
             panelUp.add(buttonsUp[i]);
         }
         panelCenter.add(panelUp);
         panelTextField = new JPanel();
+        panelTextField.setOpaque(false);
         panelTextField.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 0));
         textFields = new JTextField[4];
         for (int i = 0; i < textFields.length; i++) {
@@ -81,29 +73,52 @@ public class AppUI extends JFrame {
             textFields[i].setText("0");
             textFields[i].setFont(textFields[i].getFont().deriveFont(30f));
             textFields[i].setEnabled(false);
-            textFields[i].setDisabledTextColor(Color.BLACK);
-            textFields[i].setBackground(Color.WHITE); 
+            textFields[i].setDisabledTextColor(Color.WHITE);
+            textFields[i].setBackground(new Color(0x283C4F));
             panelTextField.add(textFields[i]);
         }
         panelCenter.add(panelTextField);
         panelDown = new JPanel();
+        panelDown.setOpaque(false);
         buttonsDown = new JButton[4];
         for (int i = 0; i < buttonsDown.length; i++) {
             buttonsDown[i] = setImgforButton("resources/down.png");
             buttonsDown[i].addActionListener(new ButtonProcess());
+            buttonsDown[i].setBorderPainted(false);
+            buttonsDown[i].setFocusPainted(false);
             panelDown.add(buttonsDown[i]);
         }
         panelCenter.add(panelDown);
+        panelBottom = new JPanel();
+        panelBottom.setLayout(new BorderLayout());
+        panelBottom.setOpaque(false);
+        panelResult = new JPanel();
+        panelResult.setOpaque(false);
+        result = new JLabel("Let's try to guess the password!");
+        result.setForeground(Color.WHITE);
+        result.setFont(result.getFont().deriveFont(13f));
+        panelResult.add(result);
+        panelBottom.add(panelResult, BorderLayout.NORTH);
         panelSelect = new JPanel();
+        panelSelect.setOpaque(false);
+        panelSelect.setOpaque(false);
         buttonCheck = new JButton("Check");
-        buttonReset = new JButton("Reset");
+        buttonCheck.setBackground(Color.GREEN);
+        buttonCheck.setBorderPainted(false);
+        buttonCheck.setFocusPainted(false);
+        buttonRestart = new JButton("Restart");
+        buttonRestart.setBackground(Color.ORANGE);
+        buttonRestart.setBorderPainted(false);
+        buttonRestart.setFocusPainted(false);
         buttonCheck.addActionListener(new ButtonProcess());
-        buttonReset.addActionListener(new ButtonProcess());
+        buttonRestart.addActionListener(new ButtonProcess());
         panelSelect.add(buttonCheck);
-        panelSelect.add(buttonReset);
-        Container window = getContentPane();
+        panelSelect.add(buttonRestart);
+        panelBottom.add(panelSelect, BorderLayout.SOUTH);
+        Container window = this;
+        window.add(panelExitandTitle, "North");
         window.add(panelCenter, "Center");
-        window.add(panelSelect, "South");
+        window.add(panelBottom, "South");
         setVisible(true);
     }
 
@@ -122,60 +137,52 @@ public class AppUI extends JFrame {
             return null;
         }
     }
+
     private class ButtonProcess implements ActionListener {
         @Override
         public void actionPerformed(java.awt.event.ActionEvent e) {
             JButton button = (JButton) e.getSource();
-            for(int i = 0; i < buttonsUp.length; i++) {
-                if(button == buttonsUp[i]) {
+            for (int i = 0; i < buttonsUp.length; i++) {
+                if (button == buttonsUp[i]) {
                     int currentValue = Integer.parseInt(textFields[i].getText());
                     currentValue++;
-                    if(currentValue > 9) currentValue = 0;
+                    if (currentValue > 9)
+                        currentValue = 0;
                     textFields[i].setText(String.valueOf(currentValue));
-                    textFields[i].setDisabledTextColor(Color.BLACK);
-                } else if(button == buttonsDown[i]) {
+                    textFields[i].setDisabledTextColor(Color.WHITE);
+                } else if (button == buttonsDown[i]) {
                     int currentValue = Integer.parseInt(textFields[i].getText());
                     currentValue--;
-                    if(currentValue < 0) currentValue = 9;
+                    if (currentValue < 0)
+                        currentValue = 9;
                     textFields[i].setText(String.valueOf(currentValue));
-                    textFields[i].setDisabledTextColor(Color.BLACK);
+                    textFields[i].setDisabledTextColor(Color.WHITE);
                 } else if (button == buttonCheck) {
-                    if(script.ifDuplicateNumbers(textFields)) {
-                        JOptionPane.showMessageDialog(null, "Duplicate numbers are not allowed!", "Warning", JOptionPane.WARNING_MESSAGE);
+                    if (script.ifDuplicateNumbers(textFields)) {
+                        result.setText("Duplicate numbers are not allowed! Try again!");
                         return;
                     }
                     textFields = script.checkPassword(textFields);
-                    if(script.rightPassword(textFields)) {
-                        JOptionPane.showMessageDialog(null, "Congratulations! You guessed the correct pin code!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    if (script.rightPassword(textFields)) {
+                        result.setText("You guessed the right password!");
                         revalidate();
                         repaint();
                         return;
+                    } else {
+                        result.setText("Try again!");
                     }
                     revalidate();
                     repaint();
-                } else if (button == buttonReset) {
-                    for(int j = 0; j < textFields.length; j++) {
+                } else if (button == buttonRestart) {
+                    for (int j = 0; j < textFields.length; j++) {
                         textFields[j].setText("0");
-                        textFields[j].setDisabledTextColor(Color.BLACK);
+                        textFields[j].setDisabledTextColor(Color.WHITE);
+                        // Restart the password
+                        script = new Script();
                     }
+                } else if (button == buttonExit) {
+                    System.exit(0);
                 }
-            }
-        }
-    }
-    private class MenuProcess implements ActionListener {
-        @Override
-        public void actionPerformed(java.awt.event.ActionEvent e) {
-            JMenuItem menuItem = (JMenuItem) e.getSource();
-            if (menuItem == menuItemExit) {
-                System.exit(0);
-            } else if(menuItem == menuItemAbout) {
-                JOptionPane.showMessageDialog(null, "Guess PinCode v1.0\nAuthor: River0077", "About", JOptionPane.INFORMATION_MESSAGE);
-            } else if(menuItem == menuItemHelp) {
-                JOptionPane.showMessageDialog(null, "Instructions:\n1. Use the up and down arrows to set each digit of the pin code.\n2. Click 'Check' to verify your guess.\n3. Colors indicate correctness: Green (correct), Yellow (wrong position), Red (not in code).\n4. Click 'Reset' to start over.", "Help", JOptionPane.INFORMATION_MESSAGE);
-            } else if(menuItem == menuItemReset) {
-                buttonReset.doClick();
-            } else if(menuItem == menuItemCheck) {
-                buttonCheck.doClick();
             }
         }
     }
