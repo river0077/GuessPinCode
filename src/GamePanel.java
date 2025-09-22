@@ -18,29 +18,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-public class AppUI extends JPanel {
-    private JLabel title;
-    private JPanel panelBar;
-    private JPanel panelTitle;
-    private JPanel panelExitandMinimize;
-    private JPanel panelCenter;
-    private JPanel panelUp;
-    private JPanel panelDown;
-    private JPanel panelTextField;
-    private JPanel panelBottom;
-    private JPanel panelResult;
-    private JPanel panelSelect;
-    private JButton buttonMinimize;
-    private JButton buttonExit;
-    private JButton[] buttonsUp;
-    private JButton[] buttonsDown;
+public class GamePanel extends JPanel {
+    private JLabel title, result;
+    private JPanel panelBar, panelTitle, panelExitandMinimize, panelCenter, panelUp, panelDown, panelTextField,
+            panelBottom, panelResult, panelSelect;
+    private JButton buttonMinimize, buttonExit, buttonCheck, buttonRestart;
+    private JButton[] buttonsUp, buttonsDown;
     private JTextField[] textFields;
-    private JButton buttonCheck;
-    private JButton buttonRestart;
-    private JLabel result;
-    private Script script = new Script();
+    private GameLogic script = new GameLogic();
 
-    public AppUI() {
+    public GamePanel() {
         setLayout(new BorderLayout());
         setBackground(new Color(0x283C4F));
         // UI components
@@ -199,23 +186,25 @@ public class AppUI extends JPanel {
                         textFields[j].setText("0");
                         textFields[j].setDisabledTextColor(Color.WHITE);
                         // Restart the password
-                        script = new Script();
+                        script = new GameLogic();
                     }
                 } else if (button == buttonExit) {
                     System.exit(0);
                 } else if (button == buttonMinimize) {
-                    JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(AppUI.this);
+                    JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(GamePanel.this);
                     topFrame.setState(JFrame.ICONIFIED);
                 }
             }
         }
     }
+
     public void enableWindowDrag(JFrame frame) {
-        final Point[] mouseDownCompCoords = {null};
+        final Point[] mouseDownCompCoords = { null };
         panelBar.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 mouseDownCompCoords[0] = e.getPoint();
             }
+
             public void mouseReleased(MouseEvent e) {
                 mouseDownCompCoords[0] = null;
             }

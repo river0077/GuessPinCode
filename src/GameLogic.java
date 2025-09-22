@@ -2,9 +2,9 @@ import java.awt.Color;
 
 import javax.swing.JTextField;
 
-public class Script {
+public class GameLogic {
     private int[] password;
-    public Script() {
+    public GameLogic() {
         password = generateNewPassword();
     }
     public JTextField[] checkPassword(JTextField[] fields) {

@@ -6,15 +6,15 @@ public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame();
-            AppUI app = new AppUI();
+            GamePanel game = new GamePanel();
             frame.setTitle("Guess Pin Code");
             frame.setUndecorated(true);
-            frame.add(app);
+            frame.add(game);
             frame.setResizable(false);
             frame.setSize(400, 300);
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(3);
-            app.enableWindowDrag(frame);
+            game.enableWindowDrag(frame);
             frame.setVisible(true);
         });
     }
