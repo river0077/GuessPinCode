@@ -1,32 +1,21 @@
-import javax.swing.ImageIcon;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Image;
-import java.awt.event.ActionListener;
-import java.awt.Point;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JFrame;
+import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
 public class GamePanel extends JPanel {
     private JLabel title, result;
     private JPanel panelBar, panelTitle, panelExitandMinimize, panelCenter, panelUp, panelDown, panelTextField,
-            panelBottom, panelResult, panelSelect;
+            panelBottom, panelSelect;
     private JButton buttonMinimize, buttonExit, buttonCheck, buttonRestart;
     private JButton[] buttonsUp, buttonsDown;
     private JTextField[] textFields;
-    private GameLogic script = new GameLogic();
-
     public GamePanel() {
         setLayout(new BorderLayout());
         setBackground(new Color(0x283C4F));
@@ -43,30 +32,19 @@ public class GamePanel extends JPanel {
         panelBar.add(panelTitle, BorderLayout.WEST);
         panelExitandMinimize = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
         panelExitandMinimize.setOpaque(false);
-        buttonMinimize = new JButton("–");
-        buttonMinimize.addActionListener(new ButtonProcess());
-        buttonMinimize.setBackground(new Color(0x283C4F));
-        buttonMinimize.setBorderPainted(false);
-        buttonMinimize.setFocusPainted(false);
-        buttonMinimize.setForeground(Color.WHITE);
+        buttonMinimize = new CustomButton("–", 45, 25, new Color(0x283C4F), Color.WHITE);
         panelExitandMinimize.add(buttonMinimize);
-        buttonExit = new JButton("X");
-        buttonExit.addActionListener(new ButtonProcess());
-        buttonExit.setBackground(Color.RED);
-        buttonExit.setBorderPainted(false);
-        buttonExit.setFocusPainted(false);
+        buttonExit = new CustomButton("X", 45, 24, Color.red, Color.black);
         panelExitandMinimize.add(buttonExit);
         panelBar.add(panelExitandMinimize, BorderLayout.EAST);
         panelCenter = new JPanel();
         panelCenter.setOpaque(false);
         panelUp = new JPanel();
+        panelUp.setLayout(new FlowLayout(FlowLayout.CENTER, 40, 0));
         panelUp.setOpaque(false);
         buttonsUp = new JButton[4];
         for (int i = 0; i < buttonsUp.length; i++) {
-            buttonsUp[i] = setImgforButton("resources/up.png");
-            buttonsUp[i].addActionListener(new ButtonProcess());
-            buttonsUp[i].setBorderPainted(false);
-            buttonsUp[i].setFocusPainted(false);
+            buttonsUp[i] = new CustomButton("▲", 50, 50, new Color(0x283C4F), Color.WHITE);
             panelUp.add(buttonsUp[i]);
         }
         panelCenter.add(panelUp);
@@ -87,28 +65,22 @@ public class GamePanel extends JPanel {
         }
         panelCenter.add(panelTextField);
         panelDown = new JPanel();
+        panelDown.setLayout(new FlowLayout(FlowLayout.CENTER, 40, 0));
         panelDown.setOpaque(false);
         buttonsDown = new JButton[4];
         for (int i = 0; i < buttonsDown.length; i++) {
-            buttonsDown[i] = setImgforButton("resources/down.png");
-            buttonsDown[i].addActionListener(new ButtonProcess());
-            buttonsDown[i].setBorderPainted(false);
-            buttonsDown[i].setFocusPainted(false);
+            buttonsDown[i] = new CustomButton("▼", 50, 50, new Color(0x283C4F), Color.WHITE);
             panelDown.add(buttonsDown[i]);
         }
         panelCenter.add(panelDown);
         panelBottom = new JPanel();
-        panelBottom.setLayout(new BorderLayout());
+        panelBottom.setLayout(new GridLayout(2, 1));
         panelBottom.setOpaque(false);
-        panelResult = new JPanel();
-        panelResult.setOpaque(false);
-        result = new JLabel("Let's try to guess the password!");
+        result = new JLabel("Let's try to guess the password!", JLabel.CENTER);
         result.setForeground(Color.WHITE);
         result.setFont(result.getFont().deriveFont(13f));
-        panelResult.add(result);
-        panelBottom.add(panelResult, BorderLayout.NORTH);
+        panelBottom.add(result);
         panelSelect = new JPanel();
-        panelSelect.setOpaque(false);
         panelSelect.setOpaque(false);
         buttonCheck = new JButton("Check");
         buttonCheck.setBackground(Color.GREEN);
@@ -118,11 +90,9 @@ public class GamePanel extends JPanel {
         buttonRestart.setBackground(Color.ORANGE);
         buttonRestart.setBorderPainted(false);
         buttonRestart.setFocusPainted(false);
-        buttonCheck.addActionListener(new ButtonProcess());
-        buttonRestart.addActionListener(new ButtonProcess());
         panelSelect.add(buttonCheck);
         panelSelect.add(buttonRestart);
-        panelBottom.add(panelSelect, BorderLayout.SOUTH);
+        panelBottom.add(panelSelect);
         Container window = this;
         window.add(panelBar, "North");
         window.add(panelCenter, "Center");
@@ -130,90 +100,40 @@ public class GamePanel extends JPanel {
         setVisible(true);
     }
 
-    public JButton setImgforButton(String imgPath) {
-        try {
-            // Method to set image for a button
-            ImageIcon image = new ImageIcon(imgPath);
-            // auto resize image to fit button
-            image = new ImageIcon(image.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
-            JButton button = new JButton(image);
-            button.setOpaque(false);
-            button.setContentAreaFilled(false);
-            return button;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    // get button check
+    public JButton getButtonCheck() {
+        return buttonCheck;
     }
-
-    private class ButtonProcess implements ActionListener {
-        @Override
-        public void actionPerformed(java.awt.event.ActionEvent e) {
-            JButton button = (JButton) e.getSource();
-            for (int i = 0; i < buttonsUp.length; i++) {
-                if (button == buttonsUp[i]) {
-                    int currentValue = Integer.parseInt(textFields[i].getText());
-                    currentValue++;
-                    if (currentValue > 9)
-                        currentValue = 0;
-                    textFields[i].setText(String.valueOf(currentValue));
-                    textFields[i].setDisabledTextColor(Color.WHITE);
-                } else if (button == buttonsDown[i]) {
-                    int currentValue = Integer.parseInt(textFields[i].getText());
-                    currentValue--;
-                    if (currentValue < 0)
-                        currentValue = 9;
-                    textFields[i].setText(String.valueOf(currentValue));
-                    textFields[i].setDisabledTextColor(Color.WHITE);
-                } else if (button == buttonCheck) {
-                    if (script.ifDuplicateNumbers(textFields)) {
-                        result.setText("Duplicate numbers are not allowed! Try again!");
-                        return;
-                    }
-                    textFields = script.checkPassword(textFields);
-                    if (script.rightPassword(textFields)) {
-                        result.setText("You guessed the right password!");
-                        revalidate();
-                        repaint();
-                        return;
-                    } else {
-                        result.setText("Try again!");
-                    }
-                    revalidate();
-                    repaint();
-                } else if (button == buttonRestart) {
-                    for (int j = 0; j < textFields.length; j++) {
-                        textFields[j].setText("0");
-                        textFields[j].setDisabledTextColor(Color.WHITE);
-                        // Restart the password
-                        script = new GameLogic();
-                    }
-                } else if (button == buttonExit) {
-                    System.exit(0);
-                } else if (button == buttonMinimize) {
-                    JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(GamePanel.this);
-                    topFrame.setState(JFrame.ICONIFIED);
-                }
-            }
-        }
+    // get button restart
+    public JButton getButtonRestart() {
+        return buttonRestart;
     }
-
-    public void enableWindowDrag(JFrame frame) {
-        final Point[] mouseDownCompCoords = { null };
-        panelBar.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent e) {
-                mouseDownCompCoords[0] = e.getPoint();
-            }
-
-            public void mouseReleased(MouseEvent e) {
-                mouseDownCompCoords[0] = null;
-            }
-        });
-        panelBar.addMouseMotionListener(new MouseAdapter() {
-            public void mouseDragged(MouseEvent e) {
-                Point currCoords = e.getLocationOnScreen();
-                frame.setLocation(currCoords.x - mouseDownCompCoords[0].x, currCoords.y - mouseDownCompCoords[0].y);
-            }
-        });
+    // get button exit
+    public JButton getButtonExit() {
+        return buttonExit;
+    }
+    // get button minimize
+    public JButton getButtonMinimize() {
+        return buttonMinimize;
+    }
+    // get buttons up
+    public JButton[] getButtonsUp() {
+        return buttonsUp;
+    }
+    // get buttons down
+    public JButton[] getButtonsDown() {
+        return buttonsDown;
+    }
+    // get text fields
+    public JTextField[] getTextFields() {
+        return textFields;
+    }
+    // get result label
+    public JLabel getResult() {
+        return result;
+    }
+    // get panelBar 
+    public JPanel getPanelBar() {
+        return panelBar;
     }
 }
