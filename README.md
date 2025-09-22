@@ -49,7 +49,7 @@ src
 ---
 ## 🖼️ Screenshot (Example)
 
-<img width="496" height="369" alt="image" src="https://github.com/user-attachments/assets/1e658fc5-d866-491c-8f0e-25130ef725c2" />
+<img width="493" height="334" alt="image" src="https://github.com/user-attachments/assets/e777063a-3e63-458b-8023-ec6fda6f1f8e" />
 
 ---
 
