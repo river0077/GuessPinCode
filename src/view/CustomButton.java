@@ -1,3 +1,4 @@
+package view;
 import javax.swing.JButton;
 import java.awt.Color;
 

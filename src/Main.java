@@ -1,5 +1,8 @@
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import logic.GameLogic;
+import view.GamePanel;
+import controller.GameController;
 
 public class Main {
     // Main method

@@ -33,6 +33,20 @@ The program gives visual feedback with colors:
 
 ---
 
+## 📂 Project Structure
+```bash
+src
+   ├── controller
+   │            └── GameController.java
+   ├── logic
+   │       └── GameLogic.java
+   ├── view
+   │      ├── CustomButton.java
+   │      └── GamePanel.java
+   └── Main.java
+```
+
+---
 ## 🖼️ Screenshot (Example)
 
 <img width="496" height="369" alt="image" src="https://github.com/user-attachments/assets/1e658fc5-d866-491c-8f0e-25130ef725c2" />

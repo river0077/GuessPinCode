@@ -1,3 +1,6 @@
+package controller;
+import logic.GameLogic;
+import view.GamePanel;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.ActionListener;
