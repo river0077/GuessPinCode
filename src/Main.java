@@ -21,16 +21,16 @@ public class Main {
             frame.setDefaultCloseOperation(3);
             controller.enableWindowDrag(frame);
             frame.setVisible(true);
-            /**
-             * for testing purposes
-             */
-            System.out.println("Password (for testing purposes): ");
-            int[] password = logic.getPassword();
-            for (int num : password) {
-                System.out.print(num);
-            }
-            System.out.println();
-            // end for testing purposes
+        //     /**
+        //      * for testing purposes
+        //      */
+        //     System.out.println("Password (for testing purposes): ");
+        //     int[] password = logic.getPassword();
+        //     for (int num : password) {
+        //         System.out.print(num);
+        //     }
+        //     System.out.println();
+        //     // end for testing purposes
         });
     }
 }

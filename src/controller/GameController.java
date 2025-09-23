@@ -93,7 +93,7 @@ public class GameController {
                     if (logic.ifDuplicateNumbers(textFields)) {
                         result.setText("Duplicate numbers are not allowed! Try again!");
                         attempts++;
-                        System.out.println(attempts + " attempts");
+                        // System.out.println(attempts + " attempts");
                         gamePanel.revalidate();
                         gamePanel.repaint();
                         return;
@@ -101,7 +101,7 @@ public class GameController {
                     textFields = logic.checkPassword(textFields);
                     if (logic.rightPassword(textFields)) {
                         attempts++;
-                        System.out.println(attempts + " attempts"); // for testing purposes
+                        // System.out.println(attempts + " attempts"); // for testing purposes
                         result.setText("You guessed the right password in " + attempts + " attempts!");
                         attempts = 0;
                         gamePanel.revalidate();
@@ -112,7 +112,7 @@ public class GameController {
                         gamePanel.revalidate();
                         gamePanel.repaint();
                         attempts++;
-                        System.out.println(attempts + " attempts"); // for testing purposes
+                        // System.out.println(attempts + " attempts"); // for testing purposes
                         return;
                     }
                     gamePanel.revalidate();
@@ -128,15 +128,15 @@ public class GameController {
                     }
                     attempts = 0;
                     logic = new GameLogic();
-                    // for testing purposes
-                    System.out.println("Attempts reset to 0" + attempts);
-                    System.out.println("New Password (for testing purposes): ");
-                    int[] password = logic.getPassword();
-                    for (int num : password) {
-                        System.out.print(num);
-                    }
-                    System.out.println();
-                    // end for testing purposes
+                    // // for testing purposes
+                    // System.out.println("Attempts reset to 0" + attempts);
+                    // System.out.println("New Password (for testing purposes): ");
+                    // int[] password = logic.getPassword();
+                    // for (int num : password) {
+                    //     System.out.print(num);
+                    // }
+                    // System.out.println();
+                    // // end for testing purposes
                     return;
                 } else if (button == buttonExit) {
                     System.exit(0);
