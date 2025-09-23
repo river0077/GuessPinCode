@@ -1,16 +1,16 @@
-# 🔐 Guess Pin Code (Java Swing)
+# Guess Pin Code (Java Swing)
 
 A simple **Java Swing desktop game** where the player tries to guess a randomly generated 4-digit PIN code.  
 Each digit ranges from `0–9`, and no duplicate numbers are allowed.  
 
 The program gives visual feedback with colors:
-- 🟩 **Green** → Correct digit at the correct position.  
-- 🟨 **Yellow** → Digit exists in the password but at the wrong position.  
-- 🟥 **Red** → Digit is not part of the password.  
+- **Green** → Correct digit at the correct position.  
+- **Yellow** → Digit exists in the password but at the wrong position.  
+- **Red** → Digit is not part of the password.  
 
 ---
 
-## 📌 Features
+## Features
 - Random **non-duplicate 4-digit PIN** generated each game.
 - Increment/decrement digits using **arrow buttons**.
 - Visual feedback with **colored digits**.
@@ -20,7 +20,7 @@ The program gives visual feedback with colors:
 
 ---
 
-## 🎮 How to Play
+## How to Play
 1. Use the **Up (▲)** and **Down (▼)** buttons to set digits.
 2. Click **Check** to verify your guess.
 3. If you guess correctly:
@@ -33,7 +33,7 @@ The program gives visual feedback with colors:
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 ```bash
 src
    ├── controller
@@ -47,13 +47,13 @@ src
 ```
 
 ---
-## 🖼️ Screenshot (Example)
+## Screenshot (Example)
 
 <img width="493" height="334" alt="image" src="https://github.com/user-attachments/assets/e777063a-3e63-458b-8023-ec6fda6f1f8e" />
 
 ---
 
-## ⚙️ Installation & Run
+## Installation & Run
 1. Clone or download this repository.
 2. Open it in your IDE (Eclipse, IntelliJ, VS Code with Java).
 3. Compile and run `Main.java`.
