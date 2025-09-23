@@ -1,4 +1,5 @@
 package controller;
+
 import logic.GameLogic;
 import view.GamePanel;
 import java.awt.Color;
@@ -15,6 +16,7 @@ import java.awt.event.MouseEvent;
 public class GameController {
     private GamePanel gamePanel;
     private GameLogic logic;
+
     public GameController(GamePanel gamePanel, GameLogic logic) {
         this.gamePanel = gamePanel;
         this.logic = logic;
@@ -36,6 +38,7 @@ public class GameController {
         buttonExit.addActionListener(new ButtonProcess());
         buttonMinimize.addActionListener(new ButtonProcess());
     }
+
     // Enable window drag
     public void enableWindowDrag(JFrame frame) {
         final Point[] mouseDownCompCoords = { null };
@@ -43,6 +46,7 @@ public class GameController {
             public void mousePressed(MouseEvent e) {
                 mouseDownCompCoords[0] = e.getPoint();
             }
+
             public void mouseReleased(MouseEvent e) {
                 mouseDownCompCoords[0] = null;
             }
@@ -54,6 +58,7 @@ public class GameController {
             }
         });
     }
+
     // Button process
     private class ButtonProcess implements ActionListener {
         private JButton[] buttonsUp = gamePanel.getButtonsUp();
@@ -64,6 +69,8 @@ public class GameController {
         private JButton buttonMinimize = gamePanel.getButtonMinimize();
         private JTextField[] textFields = gamePanel.getTextFields();
         private JLabel result = gamePanel.getResult();
+        private int attempts = 0;
+
         @Override
         public void actionPerformed(java.awt.event.ActionEvent e) {
             JButton button = (JButton) e.getSource();
@@ -85,16 +92,28 @@ public class GameController {
                 } else if (button == buttonCheck) {
                     if (logic.ifDuplicateNumbers(textFields)) {
                         result.setText("Duplicate numbers are not allowed! Try again!");
+                        attempts++;
+                        System.out.println(attempts + " attempts");
+                        gamePanel.revalidate();
+                        gamePanel.repaint();
                         return;
                     }
                     textFields = logic.checkPassword(textFields);
                     if (logic.rightPassword(textFields)) {
-                        result.setText("You guessed the right password!");
+                        attempts++;
+                        System.out.println(attempts + " attempts"); // for testing purposes
+                        result.setText("You guessed the right password in " + attempts + " attempts!");
+                        attempts = 0;
                         gamePanel.revalidate();
                         gamePanel.repaint();
                         return;
-                    } else {
+                    } else if (!logic.rightPassword(textFields)) {
                         result.setText("Try again!");
+                        gamePanel.revalidate();
+                        gamePanel.repaint();
+                        attempts++;
+                        System.out.println(attempts + " attempts"); // for testing purposes
+                        return;
                     }
                     gamePanel.revalidate();
                     gamePanel.repaint();
@@ -103,8 +122,22 @@ public class GameController {
                         textFields[j].setText("0");
                         textFields[j].setDisabledTextColor(Color.WHITE);
                         // Restart the password
-                        logic = new GameLogic();
+                        result.setText("Let's try to guess the password!");
+                        gamePanel.revalidate();
+                        gamePanel.repaint();
                     }
+                    attempts = 0;
+                    logic = new GameLogic();
+                    // for testing purposes
+                    System.out.println("Attempts reset to 0" + attempts);
+                    System.out.println("New Password (for testing purposes): ");
+                    int[] password = logic.getPassword();
+                    for (int num : password) {
+                        System.out.print(num);
+                    }
+                    System.out.println();
+                    // end for testing purposes
+                    return;
                 } else if (button == buttonExit) {
                     System.exit(0);
                 } else if (button == buttonMinimize) {

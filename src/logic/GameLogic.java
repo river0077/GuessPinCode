@@ -1,13 +1,16 @@
 package logic;
+
 import java.awt.Color;
 
 import javax.swing.JTextField;
 
 public class GameLogic {
     private int[] password;
+
     public GameLogic() {
         password = generateNewPassword();
     }
+
     public JTextField[] checkPassword(JTextField[] fields) {
         for (int i = 0; i < fields.length; i++) {
             int value = Integer.parseInt(fields[i].getText());
@@ -37,7 +40,8 @@ public class GameLogic {
 
     public boolean contains(int[] password2, int value) {
         for (int i : password2) {
-            if (i == value) return true;
+            if (i == value)
+                return true;
         }
         return false;
     }
@@ -49,12 +53,12 @@ public class GameLogic {
 
     public void wrongPosition(JTextField field) {
         field.setDisabledTextColor(Color.YELLOW);
-        
+
     }
 
     public void notInPassword(JTextField field) {
         field.setDisabledTextColor(Color.RED);
-        
+
     }
 
     public boolean ifDuplicateNumbers(JTextField[] fields) {
@@ -64,7 +68,7 @@ public class GameLogic {
         }
         boolean check = false;
         for (int i = 0; i < num.length; i++) {
-            outer:for (int j = i + 1; j < num.length; j++) {
+            outer: for (int j = i + 1; j < num.length; j++) {
                 if (num[i] != num[j]) {
                     continue outer;
                 } else {
@@ -78,16 +82,19 @@ public class GameLogic {
     public int numberRamdom() {
         return (int) (Math.random() * 10);
     }
+
     public int[] generateNewPassword() {
         int[] password = new int[4];
-        for(int i = 0;i<password.length;i++)
-        {
+        for (int i = 0; i < password.length; i++) {
             int num;
             do {
                 num = numberRamdom();
             } while (contains(password, num));
-                password[i] = num;
+            password[i] = num;
         }
+        return password;
+    }
+    public int[] getPassword() {
         return password;
     }
 }

@@ -1,4 +1,5 @@
 package view;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -17,6 +18,7 @@ public class GamePanel extends JPanel {
     private JButton buttonMinimize, buttonExit, buttonCheck, buttonRestart;
     private JButton[] buttonsUp, buttonsDown;
     private JTextField[] textFields;
+
     public GamePanel() {
         setLayout(new BorderLayout());
         setBackground(new Color(0x283C4F));
@@ -105,35 +107,43 @@ public class GamePanel extends JPanel {
     public JButton getButtonCheck() {
         return buttonCheck;
     }
+
     // get button restart
     public JButton getButtonRestart() {
         return buttonRestart;
     }
+
     // get button exit
     public JButton getButtonExit() {
         return buttonExit;
     }
+
     // get button minimize
     public JButton getButtonMinimize() {
         return buttonMinimize;
     }
+
     // get buttons up
     public JButton[] getButtonsUp() {
         return buttonsUp;
     }
+
     // get buttons down
     public JButton[] getButtonsDown() {
         return buttonsDown;
     }
+
     // get text fields
     public JTextField[] getTextFields() {
         return textFields;
     }
+
     // get result label
     public JLabel getResult() {
         return result;
     }
-    // get panelBar 
+
+    // get panelBar
     public JPanel getPanelBar() {
         return panelBar;
     }
