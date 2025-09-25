@@ -43,11 +43,11 @@ public class GamePanel extends JPanel {
         panelCenter = new JPanel();
         panelCenter.setOpaque(false);
         panelUp = new JPanel();
-        panelUp.setLayout(new FlowLayout(FlowLayout.CENTER, 40, 0));
+        panelUp.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 0));
         panelUp.setOpaque(false);
         buttonsUp = new JButton[4];
         for (int i = 0; i < buttonsUp.length; i++) {
-            buttonsUp[i] = new CustomButton("▲", 50, 50, new Color(0x283C4F), Color.WHITE);
+            buttonsUp[i] = new CustomButton("▲", 80, 50, new Color(0x283C4F), Color.WHITE);
             panelUp.add(buttonsUp[i]);
         }
         panelCenter.add(panelUp);
@@ -68,11 +68,11 @@ public class GamePanel extends JPanel {
         }
         panelCenter.add(panelTextField);
         panelDown = new JPanel();
-        panelDown.setLayout(new FlowLayout(FlowLayout.CENTER, 40, 0));
+        panelDown.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 0));
         panelDown.setOpaque(false);
         buttonsDown = new JButton[4];
         for (int i = 0; i < buttonsDown.length; i++) {
-            buttonsDown[i] = new CustomButton("▼", 50, 50, new Color(0x283C4F), Color.WHITE);
+            buttonsDown[i] = new CustomButton("▼", 80, 50, new Color(0x283C4F), Color.WHITE);
             panelDown.add(buttonsDown[i]);
         }
         panelCenter.add(panelDown);
