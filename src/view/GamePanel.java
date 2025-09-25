@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class GamePanel extends JPanel {
+    public static final Color BACKGROUND_COLOR = new Color(0x283C4F);
     private JLabel title, result;
     private JPanel panelBar, panelTitle, panelExitandMinimize, panelCenter, panelUp, panelDown, panelTextField,
             panelBottom, panelSelect;
@@ -21,7 +22,7 @@ public class GamePanel extends JPanel {
 
     public GamePanel() {
         setLayout(new BorderLayout());
-        setBackground(new Color(0x283C4F));
+        setBackground(BACKGROUND_COLOR);
         // UI components
         panelBar = new JPanel();
         panelBar.setLayout(new BorderLayout());
@@ -35,7 +36,7 @@ public class GamePanel extends JPanel {
         panelBar.add(panelTitle, BorderLayout.WEST);
         panelExitandMinimize = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
         panelExitandMinimize.setOpaque(false);
-        buttonMinimize = new CustomButton("–", 45, 25, new Color(0x283C4F), Color.WHITE);
+        buttonMinimize = new CustomButton("–", 45, 25, BACKGROUND_COLOR, Color.WHITE);
         panelExitandMinimize.add(buttonMinimize);
         buttonExit = new CustomButton("X", 45, 24, Color.red, Color.black);
         panelExitandMinimize.add(buttonExit);
@@ -47,7 +48,7 @@ public class GamePanel extends JPanel {
         panelUp.setOpaque(false);
         buttonsUp = new JButton[4];
         for (int i = 0; i < buttonsUp.length; i++) {
-            buttonsUp[i] = new CustomButton("▲", 80, 50, new Color(0x283C4F), Color.WHITE);
+            buttonsUp[i] = new CustomButton("▲", 80, 50, BACKGROUND_COLOR, Color.WHITE);
             panelUp.add(buttonsUp[i]);
         }
         panelCenter.add(panelUp);
@@ -63,7 +64,7 @@ public class GamePanel extends JPanel {
             textFields[i].setFont(textFields[i].getFont().deriveFont(30f));
             textFields[i].setEnabled(false);
             textFields[i].setDisabledTextColor(Color.WHITE);
-            textFields[i].setBackground(new Color(0x283C4F));
+            textFields[i].setBackground(BACKGROUND_COLOR);
             panelTextField.add(textFields[i]);
         }
         panelCenter.add(panelTextField);
@@ -72,7 +73,7 @@ public class GamePanel extends JPanel {
         panelDown.setOpaque(false);
         buttonsDown = new JButton[4];
         for (int i = 0; i < buttonsDown.length; i++) {
-            buttonsDown[i] = new CustomButton("▼", 80, 50, new Color(0x283C4F), Color.WHITE);
+            buttonsDown[i] = new CustomButton("▼", 80, 50, BACKGROUND_COLOR, Color.WHITE);
             panelDown.add(buttonsDown[i]);
         }
         panelCenter.add(panelDown);

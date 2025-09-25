@@ -61,7 +61,7 @@ public class GameLogic {
 
     }
 
-    public boolean ifDuplicateNumbers(JTextField[] fields) {
+    public boolean hasDuplicateNumbers(JTextField[] fields) {
         int[] num = new int[4];
         for (int i = 0; i < fields.length; i++) {
             num[i] = Integer.parseInt(fields[i].getText());
@@ -79,7 +79,7 @@ public class GameLogic {
         return check;
     }
 
-    public int numberRamdom() {
+    public int numberRandom() {
         return (int) (Math.random() * 10);
     }
 
@@ -88,7 +88,7 @@ public class GameLogic {
         for (int i = 0; i < password.length; i++) {
             int num;
             do {
-                num = numberRamdom();
+                num = numberRandom();
             } while (contains(password, num));
             password[i] = num;
         }

@@ -70,6 +70,7 @@ public class GameController {
         private JTextField[] textFields = gamePanel.getTextFields();
         private JLabel result = gamePanel.getResult();
         private int attempts = 0;
+        private boolean isWin = false;
 
         @Override
         public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -90,7 +91,7 @@ public class GameController {
                     textFields[i].setText(String.valueOf(currentValue));
                     textFields[i].setDisabledTextColor(Color.WHITE);
                 } else if (button == buttonCheck) {
-                    if (logic.ifDuplicateNumbers(textFields)) {
+                    if (logic.hasDuplicateNumbers(textFields)) {
                         result.setText("Duplicate numbers are not allowed! Try again!");
                         attempts++;
                         // System.out.println(attempts + " attempts");
@@ -100,10 +101,16 @@ public class GameController {
                     }
                     textFields = logic.checkPassword(textFields);
                     if (logic.rightPassword(textFields)) {
-                        attempts++;
-                        // System.out.println(attempts + " attempts"); // for testing purposes
-                        result.setText("You guessed the right password in " + attempts + " attempts!");
-                        attempts = 0;
+                        if (isWin == true) {
+                            result.setText("You've already win this game. Click restart or Exit game");
+                        }
+                        else if (!isWin) {
+                            attempts++;
+                            // System.out.println(attempts + " attempts"); // for testing purposes
+                            result.setText("You guessed the right password in " + attempts + " attempts!");
+                            isWin = true;
+                            attempts = 0;
+                        }
                         gamePanel.revalidate();
                         gamePanel.repaint();
                         return;
@@ -118,6 +125,7 @@ public class GameController {
                     gamePanel.revalidate();
                     gamePanel.repaint();
                 } else if (button == buttonRestart) {
+                    isWin = false;
                     for (int j = 0; j < textFields.length; j++) {
                         textFields[j].setText("0");
                         textFields[j].setDisabledTextColor(Color.WHITE);
