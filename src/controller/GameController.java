@@ -128,15 +128,15 @@ public class GameController {
                     }
                     attempts = 0;
                     logic = new GameLogic();
-                    // for testing purposes
-                    System.out.println("Attempts reset to 0" + attempts);
-                    System.out.println("New Password (for testing purposes): ");
-                    int[] password = logic.getPassword();
-                    for (int num : password) {
-                        System.out.print(num);
-                    }
-                    System.out.println();
-                    // end for testing purposes
+                    // // for testing purposes
+                    // System.out.println("Attempts reset to 0" + attempts);
+                    // System.out.println("New Password (for testing purposes): ");
+                    // int[] password = logic.getPassword();
+                    // for (int num : password) {
+                    //     System.out.print(num);
+                    // }
+                    // System.out.println();
+                    // // end for testing purposes
                     return;
                 } else if (button == buttonExit) {
                     System.exit(0);
