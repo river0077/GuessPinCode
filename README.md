@@ -53,6 +53,12 @@ src
 
 ---
 
+## Video
+
+- Video: https://youtu.be/EY-_UP_FLqs
+
+---
+
 ## Installation & Run
 1. Clone or download this repository.
 2. Open it in your IDE (Eclipse, IntelliJ, VS Code with Java).
