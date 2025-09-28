@@ -86,14 +86,8 @@ public class GamePanel extends JPanel {
         panelBottom.add(result);
         panelSelect = new JPanel();
         panelSelect.setOpaque(false);
-        buttonCheck = new JButton("Check");
-        buttonCheck.setBackground(Color.GREEN);
-        buttonCheck.setBorderPainted(false);
-        buttonCheck.setFocusPainted(false);
-        buttonRestart = new JButton("Restart");
-        buttonRestart.setBackground(Color.ORANGE);
-        buttonRestart.setBorderPainted(false);
-        buttonRestart.setFocusPainted(false);
+        buttonCheck = new CustomButton("Check", 80, 25, Color.GREEN, Color.BLACK);
+        buttonRestart = new CustomButton("Restart", 80, 25, Color.ORANGE, Color.BLACK);
         panelSelect.add(buttonCheck);
         panelSelect.add(buttonRestart);
         panelBottom.add(panelSelect);
